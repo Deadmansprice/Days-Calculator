@@ -79,12 +79,9 @@ class date_set():
                 month_covert_to_string = date_set.int_to_month_conv(month) #Calls int_to_month_conv function within date_set class to convert the int provided by user to string within month dictionary.
                 first_date_print = f"Your first date has been set: {day} {month_covert_to_string} {year}"
                 print(first_date_print)
-                time.sleep(1)
-                os.system('cls')
             elif counter == 2: 
                 global second_date #necessary for date comparison
                 second_date = datetime(year, month, day)
-                print(first_date_print)
                 if second_date < first_date:
                     print("Your second date cannot be less than the first date!")
                     counter = 0
@@ -92,6 +89,8 @@ class date_set():
                 else:
                     second_date_print = f"Your second date has been set: {day} {month_covert_to_string} {year}"
                 
+                time.sleep(2)
+                os.system('cls')
                 print(first_date_print)
                 print(second_date_print)
 
@@ -107,10 +106,10 @@ class date_comparison:
         print(f"In total number of weeks: {abs(date_delta.years * 52)}") #number of whole weeks. 
         print(f"In total number of days: {abs(day_delta.days)}") #calculates number of days between two dats.
         print(f"In total number of days, including end date: {abs(day_delta.days + 1)}")
-        
+
 class main_menu:
     def main_menu():
-        user_confirmation = input("Would you like to compare dates?\n")
+        user_confirmation = input("Would you like to compare dates? y for 'yes', n for 'no' \n")
         while user_confirmation.strip().lower() == 'y':
             date_set.set_date()
             date_comparison.compare_dates()
