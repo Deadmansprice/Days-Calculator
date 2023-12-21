@@ -2,11 +2,8 @@ from datetime import datetime
 import os, calendar, time
 from dateutil import relativedelta
 
-standard_year_days = 365
-Leap_year_days = 366
-
 class date_set():
-
+    #Dictionary for converting user input to month string
     def int_to_month_conv(month_conv):
         month = {
         1:'January',
@@ -22,11 +19,7 @@ class date_set():
         11:'November',
         12:'December'
         }
-
-        if month_conv in range(1, 13):
-            return month[month_conv]
-        else: 
-            return 'invalid month number'
+        return month.get(month_conv, 'Invalid Month Number')
 
     def last_day_of_month(year, month):
         _, last_day = calendar.monthrange(year, month)
@@ -34,7 +27,7 @@ class date_set():
     
     def set_date():
         counter = 0
-        #It will be first year regardless.
+        #Set up input for the input for the year
         while counter < 2:
             while True:
                 year = int(input("What year? Please 4 digits only as we're using Gregorian calendar system in AD.\n"))
@@ -45,7 +38,7 @@ class date_set():
                     print(f"You have set the year to {year}")
                     break
 
-            #For user input for the first set of date
+            #Set up input for the input for the month
             while True:
                 month = int(input("What month do you want to set it to? Numerical value please, as in '1' for 'January'\n"))
                 if month < 1:
@@ -58,7 +51,7 @@ class date_set():
                     print("Cannot go past 12 as there are only 12 months in a year\n")
                     continue
 
-        #For day While True loop
+        #Set up input for the input for the day
             while True:
                 day = int(input("What day do you want to set it to?\n"))
                 if day > date_set.last_day_of_month(year, month):
@@ -76,18 +69,19 @@ class date_set():
             if counter == 1: 
                 global first_date #necessary for date comparison
                 first_date = datetime(year, month, day)
-                month_covert_to_string = date_set.int_to_month_conv(month) #Calls int_to_month_conv function within date_set class to convert the int provided by user to string within month dictionary.
-                first_date_print = f"Your first date has been set: {day} {month_covert_to_string} {year}"
+                first_date_month_covert_to_string = date_set.int_to_month_conv(month) #Calls int_to_month_conv function within date_set class to convert the int provided by user to string within month dictionary.
+                first_date_print = f"Your first date has been set: {day} {first_date_month_covert_to_string} {year}"
                 print(first_date_print)
             elif counter == 2: 
                 global second_date #necessary for date comparison
                 second_date = datetime(year, month, day)
+                second_date_month_covert_to_string = date_set.int_to_month_conv(month)
                 if second_date < first_date:
                     print("Your second date cannot be less than the first date!")
                     counter = 0
                     continue
                 else:
-                    second_date_print = f"Your second date has been set: {day} {month_covert_to_string} {year}"
+                    second_date_print = f"Your second date has been set: {day} {second_date_month_covert_to_string} {year}"
                 
                 time.sleep(2)
                 os.system('cls')
